@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter();
   return (
     <div className="flex justify-between items-center bg-amber-300 pb-5 pt-5">
       <div className="ml-5 font-bold text-1xl">LOGO</div>
@@ -41,6 +42,15 @@ const Header = () => {
           >
             Contact
           </Link>
+        </div>
+        <div>
+          <button
+            className="p-3 bg-cyan-800 hover:bg-cyan-950 shadow-lg  transition-all text-white rounded cursor-pointer transform duration-300 hover:scale-105"
+            type="button"
+            onClick={() => router.push("/login")}
+          >
+            Login
+          </button>
         </div>
       </div>
     </div>
