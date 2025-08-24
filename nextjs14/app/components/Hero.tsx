@@ -7,6 +7,16 @@ interface HeroProps {
   imageUrl2: string;
 }
 
+// const Hero: React.FC<HeroProps> = ({
+//   imageUrl2,
+//   imageUrl,
+//   title,
+//   description,
+// }) => {
+//   return <div>Hero</div>;
+// };
+
+//Herp component
 const Hero = ({ imageUrl2, imageUrl, title, description }: HeroProps) => {
   return (
     <>
