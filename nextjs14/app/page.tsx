@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import Hero from "./components/Hero";
 import LoginButton from "./components/LoginButton";
 import { useRouter } from "next/navigation";
@@ -23,6 +24,11 @@ export default function Home() {
         >
           Test Button
         </LoginButton>
+        <div className="mt-5 mb-5">
+          <Button variant="default" size="lg">
+            Shadcn
+          </Button>
+        </div>
       </div>
     </>
   );
