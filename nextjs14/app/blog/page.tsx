@@ -30,7 +30,7 @@ const Blog = () => {
           {blogPosts.map((post) => (
             <BlogComponents
               key={post.id}
-              id={post.id.toString()}
+              id={post.id?.toString()}
               title={post.title}
               content={post.content}
             />
