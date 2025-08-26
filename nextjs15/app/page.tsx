@@ -7,10 +7,7 @@ export default function Home() {
   return (
     <>
       <div>
-        <Button variant="default">Test</Button>
-        <button>Test2</button>
-        <Checkbox />
-        <Input placeholder="Test" />
+        <h1>Ana Sayfa</h1>
       </div>
     </>
   );
