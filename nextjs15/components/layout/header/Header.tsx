@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, Search, User } from "lucide-react";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
 
 const Header = () => {
   return (
@@ -42,9 +43,8 @@ const Header = () => {
           <Button variant="secondary" size="icon">
             <User className="h-4 w-4" />
           </Button>
-          <Button variant="secondary" size="icon" className="md:hidden">
-            <Menu className="h-4 w-4" />
-          </Button>
+
+          <MobileMenu />
         </div>
       </div>
     </div>
