@@ -40,9 +40,11 @@ const Header = () => {
           <Button variant="secondary" size="icon">
             <Search className="h-4 w-4" />
           </Button>
-          <Button variant="secondary" size="icon">
-            <User className="h-4 w-4" />
-          </Button>
+          <Link href="/login">
+            <Button variant="secondary" size="icon">
+              <User className="h-4 w-4" />
+            </Button>
+          </Link>
 
           <MobileMenu />
         </div>
