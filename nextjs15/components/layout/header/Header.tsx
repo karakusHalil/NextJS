@@ -30,6 +30,12 @@ const Header = () => {
             Blog
           </Link>
           <Link
+            href="/blog2"
+            className="text-white font-bold border-b-2 border-transparent hover:border-white pb-1"
+          >
+            Blog2
+          </Link>
+          <Link
             href="/contact"
             className="text-white font-bold border-b-2 border-transparent hover:border-white pb-1"
           >

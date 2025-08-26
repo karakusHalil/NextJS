@@ -15,7 +15,7 @@ const BlogPage = async () => {
   return (
     <div className="container mx-auto py-12 px-4 md:px-8">
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
-        Blog Posts
+        SSR Blog Posts
       </h1>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
