@@ -42,8 +42,10 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   /* Kendi eklediklerim */
-  --color-myprimarycolor: "#38454a";
-  --color-mysecondarycolor: "#2c373b";
+  --color-myprimarycolor: #7a0f26;
+  --color-footercolor: #7a0f26;
+  --color-mysecondarycolor: #b2223c;
+  --color-mygoldcolor: #ffd700;
 }
 
 :root {
