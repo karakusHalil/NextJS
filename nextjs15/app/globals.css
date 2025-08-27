@@ -46,6 +46,11 @@
   --color-footercolor: #7a0f26;
   --color-mysecondarycolor: #b2223c;
   --color-mygoldcolor: #ffd700;
+  --my-dark-color: #7a0f26;
+  --my-dark-color-light: #2c2c2c;
+  --my-light-color: #f8e8ec;
+  --my-light-color-dark: #fdfdfd;
+  --font-babes-neue: "Bebas Neue", sans-serif;
 }
 
 :root {
@@ -124,4 +129,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.headerBg {
+  @apply bg-myprimarycolor dark:bg-[var(--my-dark-color-light)];
 }

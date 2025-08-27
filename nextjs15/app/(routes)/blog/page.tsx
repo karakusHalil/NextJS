@@ -14,7 +14,7 @@ const BlogPage = async () => {
   console.log(posts);
   return (
     <div className="container mx-auto py-12 px-4 md:px-8">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
+      <h1 className="text-4xl font-babes-neue font-bold text-center text-gray-800 mb-10">
         SSR Blog Posts
       </h1>
 

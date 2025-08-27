@@ -2,12 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Menu, Search, User } from "lucide-react";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const Header = () => {
   return (
-    <div className="bg-mysecondarycolor shadow-sm top-0 z-50">
+    <div className="headerBg shadow-sm top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
-        <Link href="/" className="text-white font-bold text-lg">
+        <Link
+          href="/"
+          className="text-white font-bold text-lg hover:text-[var(--my-light-color)] dark:hover:text-[var(--my-dark-color)]"
+        >
           LOGO
         </Link>
         <nav className="hidden md:flex space-x-6">
@@ -51,6 +55,7 @@ const Header = () => {
               <User className="h-4 w-4" />
             </Button>
           </Link>
+          <ModeToggle />
 
           <MobileMenu />
         </div>
