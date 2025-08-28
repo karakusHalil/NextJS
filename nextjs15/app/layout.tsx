@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Bebas_Neue } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
-import { siteMetadata } from "@/lib/siteMetadata";
+import { siteMetadata } from "../lib/siteMetadata";
 import { string } from "zod";
 
 const geistSans = Geist({
@@ -22,17 +22,21 @@ export const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
 });
 
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteMetadata.siteUrl),
   title: {
     default: siteMetadata.title,
     template: `%s | ${siteMetadata.title}`,
   },
   description: siteMetadata.description,
   authors: [{ name: siteMetadata.author, url: siteMetadata.siteUrl }],
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
   openGraph: {
     type: "website",
     locale: siteMetadata.locale,
@@ -69,7 +73,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
 };
