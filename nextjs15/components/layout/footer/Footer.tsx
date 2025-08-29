@@ -1,15 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import useStore from "@/store/useStore";
 
 const Footer = () => {
+  const footerText = useStore((state) => state.footerText);
   return (
     <>
       <div className="bg-black   text-white py-6">
         <div className="container mx-auto flex flex-col md:flex-row justify-between pl-4 pr-4 items-center ">
           <div className="text-center md:text-left space-p-4">
             <Link href="/" className="text-2xl text-white font-bold">
-              Logo
+              {footerText}
             </Link>
             <p>Lorem ipsum dolor sit amet.</p>
           </div>
