@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { siteMetadata } from "../../../lib/siteMetadata";
-import { title } from "process";
+import AboutMainPage from "./_components/AboutMainPage";
 
 export const viewport = {
   themeColor: [
@@ -58,13 +58,15 @@ const AboutPage = async () => {
   return (
     <section>
       <div>
-        {jsonLd.map((item, index) => (
-          <script
-            key={index}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
-          />
-        ))}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
+      </div>
+      <div>
+        <AboutMainPage />
       </div>
     </section>
   );
