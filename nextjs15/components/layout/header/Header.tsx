@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Menu, Search, User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { ModeToggle } from "@/components/ModeToggle";

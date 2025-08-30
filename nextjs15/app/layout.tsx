@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 import { siteMetadata } from "../lib/siteMetadata";
-import { string } from "zod";
 import ReduxProvider from "@/components/ReduxProvider";
 
 const geistSans = Geist({
