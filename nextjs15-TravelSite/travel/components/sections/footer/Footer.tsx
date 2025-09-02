@@ -151,7 +151,7 @@ const Footer = () => {
             Copyright © 2025 <span className="text-orange-500">Travel</span>
           </div>
           <div>
-            <span className="text-orange-500">Youtube</span> Efe Görkem Ümit
+            <span className="text-orange-500">Travel</span> Burada
           </div>
         </div>
       </div>
