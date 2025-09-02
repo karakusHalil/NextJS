@@ -1,9 +1,11 @@
-import { Menu, MessageCircle, Phone, Search, User } from "lucide-react";
+import { MessageCircle, Phone, Search, User } from "lucide-react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
+import MobileMenu from "./MobileMenu";
+import { navigationLinks } from "@/app/constants";
 
 const Header = () => {
   const socialLinks = [
@@ -26,14 +28,7 @@ const Header = () => {
       ),
     },
   ];
-  const navigationLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/hotels", label: "Hotel" },
-    { href: "/trips", label: "Trip" },
-    { href: "/rent-a-cars", label: "Rent a car" },
-    { href: "/contact", label: "Contact" },
-  ];
+
   return (
     <header className="bg-black text-whitee">
       {/* Top Bar */}
@@ -91,10 +86,10 @@ const Header = () => {
             <div className="p-3 hidden lg:flex bg-orange-500 cursor-pointer text-white rounded-full">
               <Search />
             </div>
-            <div className="p-3 hidden lg:flex bg-orange-500 cursor-pointer text-white rounded-full">
-              <Menu />
-            </div>
-            <div className="p-3 hidden lg:flex bg-sky-400 cursor-pointer text-white rounded-full">
+
+            <MobileMenu />
+
+            <div className="p-3 lg:flex bg-sky-400 cursor-pointer text-white rounded-full">
               <User />
             </div>
           </div>

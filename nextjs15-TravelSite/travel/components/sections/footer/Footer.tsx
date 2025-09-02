@@ -1,3 +1,4 @@
+import { navigationLinks } from "@/app/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -26,15 +27,6 @@ const Footer = () => {
         <FaInstagram className="text-white hover:text-orange-500" size={16} />
       ),
     },
-  ];
-
-  const navigationLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/hotels", label: "Hotel" },
-    { href: "/trips", label: "Trip" },
-    { href: "/rent-a-cars", label: "Rent a car" },
-    { href: "/contact", label: "Contact" },
   ];
 
   const instagramImages = Array.from(
