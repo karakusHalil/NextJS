@@ -1,11 +1,13 @@
-import { MessageCircle, Phone, Search, User } from "lucide-react";
+import { MessageCircle, Phone, User } from "lucide-react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
+
 import { navigationLinks } from "@/app/constants";
+import SearchPage from "./Search";
 
 const Header = () => {
   const socialLinks = [
@@ -83,15 +85,12 @@ const Header = () => {
             ))}
           </nav>
           <div className="flex items-center space-x-4">
-            <div className="p-3 hidden lg:flex bg-orange-500 cursor-pointer text-white rounded-full">
-              <Search />
-            </div>
-
-            <MobileMenu />
+            <SearchPage />
 
             <div className="p-3 lg:flex bg-sky-400 cursor-pointer text-white rounded-full">
               <User />
             </div>
+            <MobileMenu />
           </div>
         </div>
       </div>
