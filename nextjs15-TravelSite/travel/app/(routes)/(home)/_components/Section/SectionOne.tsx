@@ -7,7 +7,15 @@ import { Variants } from "framer-motion";
 
 const fadeInVariants: Variants = {
   hidden: { y: -50, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+  visible: (index) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: index * 0.5,
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  }),
 };
 
 const SectionOne = () => {
@@ -22,6 +30,7 @@ const SectionOne = () => {
             viewport={{ once: false, amount: 0.2 }}
             transition={{ delay: 0.1 }}
             variants={fadeInVariants}
+            custom={0}
           >
             <Image
               alt=""
@@ -38,6 +47,7 @@ const SectionOne = () => {
             viewport={{ once: false, amount: 0.2 }}
             transition={{ delay: 0.1 }}
             variants={fadeInVariants}
+            custom={1}
           >
             <Image
               alt=""
