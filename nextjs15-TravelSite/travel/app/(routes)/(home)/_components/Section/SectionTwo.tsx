@@ -1,4 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { TypeAnimation } from "react-type-animation";
+
 import React from "react";
 
 const SectionTwo = () => {
@@ -6,9 +10,26 @@ const SectionTwo = () => {
     <>
       <div className="bg-orange-100 mt-12">
         <div className="mx-auto container text-center py-16 lg:px-28">
-          <h2 className="text-2xl lg:text-4xl font-bold text-blue-600 mb-4">
-            WELCOME TO TRENDY TRAVEL
-          </h2>
+          <div className="mb-4">
+            <TypeAnimation
+              sequence={[
+                // Same substring at the start will only be typed out once, initially
+                "WELCOME TO TRAVEL",
+                2000, // wait 1s before replacing "Mice" with "Hamsters"
+                "SEYAHATE HOŞ GELDİNİZ",
+                2000,
+                "WILLKOMMEN BEI TRAVEL",
+                2000,
+                "BIENVENUE A TRAVEL",
+                2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              className="text-2xl lg:text-4xl font-bold text-blue-600"
+              repeat={Infinity}
+            />
+          </div>
+
           <div className="flex justify-center items-center mb-6">
             <hr className="border-gray-300 w-1/5" />
             <span className="mx-3 text-gray-400 text-xl">&#128064;</span>

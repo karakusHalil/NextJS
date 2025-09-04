@@ -41,7 +41,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
 }
 
 :root {
@@ -127,4 +126,20 @@
 }
 .swiper-button-next {
   color: #ea580c !important;
+}
+
+@keyframes move-dot {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.animate-move-dot {
+  animation: move-dot 3s infinite linear;
 }
