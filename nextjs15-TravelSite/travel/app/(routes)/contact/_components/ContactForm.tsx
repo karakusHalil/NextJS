@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { email, z } from "zod";
@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -35,6 +34,8 @@ const formSchema = z.object({
 });
 
 const ContactForm = () => {
+  const [success, setSuccess] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,10 +45,27 @@ const ContactForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...values }),
+      });
+      console.log("response", response);
+      if (!response.ok) {
+        if (response.status === 500) {
+          throw new Error("Failed to send email");
+        }
+      } else {
+        form.reset();
+        setSuccess(true);
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
   }
 
   return (
@@ -97,6 +115,11 @@ const ContactForm = () => {
                 </FormItem>
               )}
             />
+            {success && (
+              <p className="text-green-600 text-sm">
+                Mesajınız başarıyla gönderildi ✅
+              </p>
+            )}
             <Button type="submit">Submit</Button>
           </form>
         </Form>
