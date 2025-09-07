@@ -9,8 +9,26 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+// import { useRouter } from "next/navigation";
+// import React, { useState } from "react";
 
-const SearchPage = () => {
+const MainSearch = () => {
+  // const router = useRouter();
+  // const [formValue, setFormValue] = useState({
+  //   destination: "paris", //Default values
+  //   activity: "hiking",
+  //   duration: "0-8",
+  //   price: "250-900",
+  // });
+
+
+  // const handleChange = (key: string, value: string) => {
+  //   setFormValue((prev) => ({
+  //     ...prev,
+  //     [key]: value,
+  //   }));
+  // }
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -41,4 +59,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default MainSearch;

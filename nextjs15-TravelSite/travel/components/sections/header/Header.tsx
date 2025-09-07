@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 
 import { MessageCircle, Phone, User } from "lucide-react";
 import { FaFacebookF } from "react-icons/fa";
@@ -10,7 +9,7 @@ import Image from "next/image";
 import MobileMenu from "./MobileMenu";
 
 import { navigationLinks } from "@/app/constants";
-import SearchPage from "./Search";
+import MainSearch from "./MainSearch";
 import { usePathname } from "next/navigation";
 
 const Header = () => {
@@ -95,7 +94,7 @@ const Header = () => {
             ))}
           </nav>
           <div className="flex items-center space-x-4">
-            <SearchPage />
+            <MainSearch />
 
             <div className="p-3 lg:flex bg-sky-400 cursor-pointer text-white rounded-full">
               <User />
