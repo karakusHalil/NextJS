@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { email, z } from "zod";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const formSchema = z.object({
   name: z
@@ -31,10 +32,15 @@ const formSchema = z.object({
     .string()
     .nonempty({ message: "Message is required." })
     .min(10, { message: "Message must be at least 10 characters." }),
+
+  recaptchaToken: z
+    .string()
+    .nonempty({ message: "Please verify that you are not a robot." }),
 });
 
 const ContactForm = () => {
   const [success, setSuccess] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,6 +48,7 @@ const ContactForm = () => {
       name: "",
       email: "",
       message: "",
+      recaptchaToken: "",
     },
   });
 
@@ -61,7 +68,12 @@ const ContactForm = () => {
         }
       } else {
         form.reset();
+        recaptchaRef.current?.reset();
         setSuccess(true);
+
+        setTimeout(() => {
+          setSuccess(false);
+        }, 4000);
       }
     } catch (error) {
       console.log("Error", error);
@@ -111,6 +123,25 @@ const ContactForm = () => {
                     <Textarea placeholder="shadcn" {...field} />
                   </FormControl>
 
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="recaptchaToken"
+              render={({ field }) => (
+                <FormItem>
+                  {/* isteğe bağlı label */}
+                  <FormLabel className="sr-only">reCAPTCHA</FormLabel>
+                  <FormControl>
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey="6LcuY8MrAAAAAME27i6YwKhpOMuNx4BMw2EPMx0x"
+                      onChange={(token) => field.onChange(token ?? "")}
+                      onExpired={() => field.onChange("")}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
