@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import HotelList from "./_components/HotelList";
 
 const HotelsPage = () => {
   return (
-    <div>HotelsPage</div>
-  )
-}
+    <>
+      <HotelList />
+    </>
+  );
+};
 
-export default HotelsPage
+export default HotelsPage;
