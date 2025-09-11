@@ -1,17 +1,35 @@
 import { prismadb } from "../../../lib/db";
 import { NextResponse } from "next/server";
 
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
 
-export async function GET() {
+  const rating = searchParams.get("rating");
+  const priceMin = searchParams.get("priceMin");
+  const priceMax = searchParams.get("priceMax");
+
+  const filters: any = [];
+
+  if (priceMin || priceMax) {
+    const priceFilter: any = {};
+    if (priceMin) priceFilter.gte = Number(priceMin);
+    if (priceMax) priceFilter.lte = Number(priceMax);
+    filters.push({ pricePerNight: priceFilter });
+  }
+
+  if (rating) {
+    filters.push({ rating: { gte: Number(rating) } });
+  }
+
   try {
     const hotels = await prismadb.hotel.findMany({
+      where: filters.length > 0 ? { AND: filters } : {},
       include: {
         rooms: true,
       },
     });
 
     return NextResponse.json(hotels);
-
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to fetch hotels" },
