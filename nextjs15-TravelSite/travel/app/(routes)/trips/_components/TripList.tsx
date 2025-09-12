@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star } from "lucide-react";
@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // Room tipi
 interface Room {
@@ -61,6 +62,9 @@ const TripList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
+  const searchParams = useSearchParams();
+  const route = useRouter();
+
   const form = useForm<FilterValues>({
     resolver: zodResolver(filterSchema),
     defaultValues: {
@@ -82,9 +86,7 @@ const TripList = () => {
     if (filter.priceMin) params.append("priceMin", filter.priceMin);
     if (filter.priceMax) params.append("priceMax", filter.priceMax);
 
-    if (params.toString()) {
-      url += "?" + params.toString();
-    }
+    url += "?" + params.toString();
 
     console.log("Fetch URL:", url);
 
@@ -102,13 +104,24 @@ const TripList = () => {
   };
 
   useEffect(() => {
-    fetchHotels();
-  }, []);
+    const filters: FilterValues = {
+      rating: searchParams.get("rating") || "",
+      priceMin: searchParams.get("priceMin") || "",
+      priceMax: searchParams.get("priceMax") || "",
+    };
+    form.reset(filters);
+
+    fetchHotels(filters);
+  }, [searchParams]);
 
   // Form Submit
   function onSubmit(values: z.infer<typeof filterSchema>) {
-    fetchHotels(values);
-    console.log("Form values:", values);
+    const params = new URLSearchParams();
+    if (values.rating) params.append("rating", values.rating);
+    if (values.priceMin) params.append("priceMin", values.priceMin);
+    if (values.priceMax) params.append("priceMax", values.priceMax);
+
+    route.push(`/trips?${params.toString()}`);
   }
 
   return (
