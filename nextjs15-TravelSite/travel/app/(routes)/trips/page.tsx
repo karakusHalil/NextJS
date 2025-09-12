@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import TripList from "./_components/TripList";
 
 const Trips = () => {
   return (
-    <div>Trips</div>
-  )
-}
+    <>
+      <div>
+        <TripList />
+      </div>
+    </>
+  );
+};
 
-export default Trips
+export default Trips;

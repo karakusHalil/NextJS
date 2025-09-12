@@ -28,7 +28,10 @@ interface HotelFilterProps {
   defaultValues?: FilterValues;
 }
 
-const HotelFilter: React.FC<HotelFilterProps> = ({ onSubmit, defaultValues }) => {
+const HotelFilter: React.FC<HotelFilterProps> = ({
+  onSubmit,
+  defaultValues,
+}) => {
   const form = useForm<FilterValues>({
     resolver: zodResolver(filterSchema),
     defaultValues: defaultValues || { rating: "", priceMin: "", priceMax: "" },
@@ -47,7 +50,14 @@ const HotelFilter: React.FC<HotelFilterProps> = ({ onSubmit, defaultValues }) =>
             <FormItem>
               <FormLabel>Rating</FormLabel>
               <FormControl>
-                <Input type="number" step="0.1" placeholder="e.g., 4.5" {...field} />
+                <Input
+                  type="number"
+                  step="0.1"
+                  min={0}
+                  max={5}
+                  placeholder="e.g., 4.5"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,7 +70,12 @@ const HotelFilter: React.FC<HotelFilterProps> = ({ onSubmit, defaultValues }) =>
             <FormItem>
               <FormLabel>Price Min</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Minimum price" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Minimum price"
+                  min={0}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,7 +88,12 @@ const HotelFilter: React.FC<HotelFilterProps> = ({ onSubmit, defaultValues }) =>
             <FormItem>
               <FormLabel>Price Max</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Maximum price" {...field} />
+                <Input
+                  type="number"
+                  placeholder="Maximum price"
+                  min={0}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
