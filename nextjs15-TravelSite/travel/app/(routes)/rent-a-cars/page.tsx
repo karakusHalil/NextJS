@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import RentacarList from "./_components/RentacarList";
 
 const Rentacar = () => {
   return (
-    <div>Rentacar</div>
-  )
-}
+    <>
+      <RentacarList />
+    </>
+  );
+};
 
-export default Rentacar
+export default Rentacar;
