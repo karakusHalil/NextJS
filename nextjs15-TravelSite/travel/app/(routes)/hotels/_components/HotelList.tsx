@@ -38,14 +38,14 @@ const HotelList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
-  const fetchHotels = (filter: FilterValues = {}) => {
+  const fetchHotels = (filters: FilterValues = {}) => {
     setLoading(true);
     setError(false);
     let url = "/api/hotels";
     const params = new URLSearchParams();
-    if (filter.rating) params.append("rating", filter.rating);
-    if (filter.priceMin) params.append("priceMin", filter.priceMin);
-    if (filter.priceMax) params.append("priceMax", filter.priceMax);
+    if (filters.rating) params.append("rating", filters.rating);
+    if (filters.priceMin) params.append("priceMin", filters.priceMin);
+    if (filters.priceMax) params.append("priceMax", filters.priceMax);
 
     if (params.toString()) url += "?" + params.toString();
 
