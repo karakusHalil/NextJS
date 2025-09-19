@@ -96,9 +96,12 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <MainSearch />
 
-            <div className="p-3 lg:flex bg-sky-400 cursor-pointer text-white rounded-full">
+            <Link
+              href="/login"
+              className="p-3 lg:flex bg-sky-400 cursor-pointer text-white rounded-full"
+            >
               <User />
-            </div>
+            </Link>
             <MobileMenu />
           </div>
         </div>
