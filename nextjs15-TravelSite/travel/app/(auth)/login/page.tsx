@@ -101,7 +101,7 @@ const LoginPage = () => {
                 </Button>
 
                 <Link
-                  href="/login"
+                  href="/register"
                   className="
       font-bold 
       text-sm 

@@ -34,7 +34,8 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const RegisterPage = () => {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>("");
+  const [success, setSuccess] = useState<string | null>("");
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -48,7 +49,33 @@ const RegisterPage = () => {
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
+    setError("");
+    setSuccess("");
     console.log(data);
+
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        const result = text ? JSON.parse(text) : {};
+        setError(result.message || "Registration failed");
+        return;
+      }
+      setSuccess("Registration successful! Please log in.");
+      setTimeout(() => {
+        setSuccess(null);
+        router.push("/login");
+      }, 3000);
+    } catch (error) {
+      setError((error as Error).message || "Something went wrong");
+    }
   };
 
   return (
@@ -57,6 +84,7 @@ const RegisterPage = () => {
         <div className="bg-slate-50 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
           <h1 className="text-2xl font-bold mb-6 text-center">Register</h1>
           {error && <p className="text-red-500 mb-4">{error}</p>}
+          {success && <p className="text-green-500 mb-4">{success}</p>}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
@@ -93,7 +121,11 @@ const RegisterPage = () => {
                   <FormItem className="mb-6">
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="**********" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="**********"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

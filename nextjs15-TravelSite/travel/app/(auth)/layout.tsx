@@ -9,7 +9,7 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
     <>
-      <Link href="/" className="flex justify-center items-center my-8">
+      <Link href="/" className="flex justify-center items-center my-4">
         <Image
           src={"/logo.png"}
           alt="Travel"
