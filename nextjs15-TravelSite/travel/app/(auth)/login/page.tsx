@@ -41,7 +41,9 @@ const LoginPage = () => {
     },
   });
 
-  const onSubmit = async (data: LoginFormValues) => {};
+  const onSubmit = async (data: LoginFormValues) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -78,11 +80,34 @@ const LoginPage = () => {
                 )}
               />
               <div className="flex flex-row items-center justify-between">
-                <Button type="submit">Login</Button>
-                <Link
-                  href="/register"
+                <Button
+                  type="submit"
                   className="
-                  font-bold text-sm text-blue-500 hover:text-blue-800"
+      bg-blue-500 
+      text-white 
+      font-semibold 
+      px-4 
+      py-2 
+      rounded 
+      transition 
+      duration-200 
+      ease-in-out
+      hover:bg-blue-600 hover:scale-105
+      active:scale-95 active:bg-blue-700
+      focus:outline-none
+    "
+                >
+                  Login
+                </Button>
+
+                <Link
+                  href="/login"
+                  className="
+      font-bold 
+      text-sm 
+      text-blue-500 
+      hover:text-blue-800
+    "
                 >
                   Register
                 </Link>
