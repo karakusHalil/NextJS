@@ -3,16 +3,24 @@ nextJS Dosya Yapısı
 src/
 
 ├── app/                # Route-based yapı (Next.js 13+ App Router)
+
 │   ├── layout.tsx      # Genel sayfa düzeni
+
 │   ├── page.tsx        # Ana sayfa
+
 │   ├── api/            # API route'ları
+
 │   ├── [dynamic]/      # Dinamik route'lar (ör: [id], [slug])
+
 │   └── dashboard/      # Özel alt sayfa yapısı
 │
 
 ├── components/         # Yeniden kullanılabilir bileşenler
+
 │   ├── ui/             # UI odaklı bileşenler (shadcn/ui ile tasarlanmış)
+
 │   ├── forms/          # Form bileşenleri
+
 │   └── layout/         # Genel düzen bileşenleri (header, footer, sidebar)
 │
 
@@ -36,7 +44,10 @@ src/
 
 ├── public/             # Statik dosyalar (favicon, resimler)
 │
+
 ├── middleware.ts       # Orta katman işlemleri (auth, yönlendirme vb.)
 │
+
 └── next.config.js      # Next.js yapılandırma dosyası
+
 
