@@ -51,7 +51,7 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterFormValues) => {
     setError("");
     setSuccess("");
-    console.log(data);
+    
 
     try {
       const response = await fetch("/api/auth/register", {

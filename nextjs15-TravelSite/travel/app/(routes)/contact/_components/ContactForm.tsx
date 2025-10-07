@@ -61,7 +61,7 @@ const ContactForm = () => {
         },
         body: JSON.stringify({ ...values }),
       });
-      console.log("response", response);
+      
       if (!response.ok) {
         if (response.status === 500) {
           throw new Error("Failed to send email");
@@ -76,7 +76,7 @@ const ContactForm = () => {
         }, 4000);
       }
     } catch (error) {
-      console.log("Error", error);
+      
     }
   }
 

@@ -39,14 +39,14 @@ export async function POST(req: Request) {
         `,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    
     return NextResponse.json(
       { message: "Email sent successfully" },
       { status: 200 }
     );
   } catch (error) {
     // handle error
-    console.log("Error", error);
+    
     return NextResponse.json(
       { message: "Failed to send email" },
       { status: 500 }

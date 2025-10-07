@@ -88,7 +88,7 @@ const TripList = () => {
 
     url += "?" + params.toString();
 
-    console.log("Fetch URL:", url);
+    
 
     fetch(url)
       .then((res) => res.json())
