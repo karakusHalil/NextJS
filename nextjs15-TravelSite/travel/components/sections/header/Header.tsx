@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle, Phone, User } from "lucide-react";
+import { MessageCircle, Phone, User, UserPlus } from "lucide-react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
@@ -11,6 +11,7 @@ import MobileMenu from "./MobileMenu";
 import { navigationLinks } from "@/app/constants";
 import MainSearch from "./MainSearch";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const Header = () => {
   const pathname = usePathname();
@@ -35,6 +36,8 @@ const Header = () => {
       ),
     },
   ];
+
+  const { data: session, status } = useSession();
 
   return (
     <header className="bg-black text-whitee">
@@ -96,12 +99,22 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <MainSearch />
 
-            <Link
-              href="/login"
-              className="p-3 lg:flex bg-sky-400 cursor-pointer text-white rounded-full"
-            >
-              <User />
-            </Link>
+            {session ? (
+              <Link
+                href="/profile"
+                className="p-3 bg-red-400 cursor-pointer text-white rounded-full"
+              >
+                <UserPlus />
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="p-3 bg-sky-400 cursor-pointer text-white rounded-full"
+              >
+                <UserPlus />
+              </Link>
+            )}
+          
             <MobileMenu />
           </div>
         </div>

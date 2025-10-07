@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const loginSchema = z.object({
   email: z
@@ -31,7 +32,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>("");
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -42,7 +43,18 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log(data);
+    setError("");
+    const response = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+
+    if (response?.error) {
+      setError("Invalid email or password");
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -60,7 +72,11 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="example@gmail.com" {...field} />
+                      <Input
+                        autoComplete="username"
+                        placeholder="example@gmail.com"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -73,7 +89,12 @@ const LoginPage = () => {
                   <FormItem className="mb-6">
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="**********" {...field} />
+                      <Input
+                        type="password"
+                        autoComplete="current-password"
+                        placeholder="**********"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

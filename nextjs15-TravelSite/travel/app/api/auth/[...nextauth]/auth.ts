@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prismadb } from "@/lib/db";
 import { JWT } from "next-auth/jwt";
+import { Session, User } from "next-auth"; // Tipleri ekledik
 
 export const authOptions = {
   providers: [
@@ -34,17 +35,19 @@ export const authOptions = {
           throw new Error("Incorrect password.");
         }
 
+        // İşlevsellik değişmedi
         return {
           id: user.id,
           email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstName: user.firstName ?? "",
+          lastName: user.lastName ?? "",
         };
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user: any }) {
+    // Tip güvenli jwt callback
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
         token.firstName = user.firstName;
@@ -52,8 +55,16 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token }: { session: any; token: JWT }) {
-      if (session?.user) {
+
+    // Tip güvenli session callback
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT;
+    }): Promise<Session> {
+      if (session.user) {
         session.user.id = token.id;
         session.user.firstName = token.firstName;
         session.user.lastName = token.lastName;
@@ -62,9 +73,11 @@ export const authOptions = {
       return session;
     },
   },
+
   pages: {
     signIn: "/login",
   },
+
   session: { strategy: "jwt" as const },
   secret: process.env.NEXTAUTH_SECRET,
 };
