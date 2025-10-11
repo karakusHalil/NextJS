@@ -25,8 +25,14 @@ const hotelFormSchema = z.object({
   address: z.string().min(5, {
     message: "Address is required and must be at least 5 characters",
   }),
-  rating: z.number().min(0).max(5).optional(),
-  pricePerNight: z.number().min(0),
+  rating: z.preprocess((val) => {
+    const num = Number(val);
+    return isNaN(num) ? undefined : num;
+  }, z.number().min(0).max(5).optional()) as unknown as z.ZodOptional<z.ZodNumber>, // TS hatasını önlemek için
+  pricePerNight: z.preprocess((val) => {
+    const num = Number(val);
+    return isNaN(num) ? undefined : num;
+  }, z.number().min(0)) as unknown as z.ZodNumber,
 });
 
 const HotelsForm = () => {
@@ -44,7 +50,34 @@ const HotelsForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof hotelFormSchema>) => {
-    console.log(values);
+    const hotelData = {
+      name: values.name,
+      description: values.description,
+      location: values.location,
+      address: values.address,
+      rating: Number(values.rating) || 0,
+      pricePerNight: Number(values.pricePerNight),
+    };
+
+    try {
+      const response = await fetch("/api/hotels", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(hotelData),
+      });
+      console.log("hotelData",hotelData)
+
+      if (!response.ok) {
+        throw new Error("Failed to submit hotel data");
+      }
+      form.reset();
+    } catch (error) {
+      console.error("Failed to submit hotel data:", error);
+    }
+
+    console.log("front",values);
   };
 
   return (
