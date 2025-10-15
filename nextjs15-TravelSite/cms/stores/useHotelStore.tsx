@@ -40,7 +40,9 @@ export const useHotelStore = create<HotelStore>((set) => ({
 
       params.append("page", String(filters.page || 1));
 
-      const response = await fetch(`/api/hotels?${params.toString()}`);
+      const response = await fetch(`/api/hotels?${params.toString()}`, {
+        cache: "no-store",
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch hotels");
       }

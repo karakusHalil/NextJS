@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useHotelStore } from "@/stores/useHotelStore";
 
 const hotelFormSchema = z.object({
   name: z
@@ -36,6 +37,8 @@ const hotelFormSchema = z.object({
 });
 
 const HotelsForm = () => {
+  const { fetchHotels } = useHotelStore();
+
   const form = useForm<z.infer<typeof hotelFormSchema>>({
     resolver: zodResolver(hotelFormSchema),
     defaultValues: {
@@ -67,17 +70,18 @@ const HotelsForm = () => {
         },
         body: JSON.stringify(hotelData),
       });
-      console.log("hotelData",hotelData)
+      console.log("hotelData", hotelData);
 
       if (!response.ok) {
         throw new Error("Failed to submit hotel data");
       }
       form.reset();
+      fetchHotels(); // Yeni oteli ekledikten sonra otel listesini yenile
     } catch (error) {
       console.error("Failed to submit hotel data:", error);
     }
 
-    console.log("front",values);
+    console.log("front", values);
   };
 
   return (
