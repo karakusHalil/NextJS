@@ -1,5 +1,6 @@
 import React from "react";
 import HotelsForm from "./_components/HotelsForm";
+import { HotelTable } from "./_components/HotelTable";
 
 const HotelPage = () => {
   return (
@@ -13,6 +14,7 @@ const HotelPage = () => {
               or a table layout. If you have a sidebar, it will be on the left
               or right, but this container is now wider to accommodate that.
             </p>
+            <HotelTable />
           </div>
           <div className="w-full lg:w-1/3 p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Add Hotel</h2>

@@ -1,5 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prismadb } from "@/lib/db";
+import { Prisma } from "@prisma/client";
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,12 +27,53 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
-  try {
-    const hotels = await prismadb.hotel.findMany();
-    return NextResponse.json(hotels);
-  } catch (error) {
-    console.error("GET error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-  }
+export async function GET(request: NextRequest) {
+  const {searchParams} = new URL(request.url);
+  const rating = searchParams.get('rating');
+  const priceMax = searchParams.get('priceMax');
+  const priceMin = searchParams.get('priceMin');
+   const name = searchParams.get('name');
+   const pageStr = searchParams.get('page') || '1';
+   const page = Number(pageStr);
+   const limit = 5;
+    const skip = (page - 1) * limit;
+
+    const filters: Prisma.HotelWhereInput[] = [];
+
+    if (priceMin || priceMax) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const priceFilter: any = {};
+      if (priceMin) priceFilter.gte = Number(priceMin);
+      if (priceMax) priceFilter.lte = Number(priceMax);
+      filters.push({ pricePerNight: priceFilter });
+    }
+
+    if(rating){
+      filters.push({ rating: Number(rating) });
+    }
+
+    if(name){
+      filters.push({ name: { contains: name, mode: 'insensitive' } });
+    }
+
+    const whereClause = filters.length > 0 ? { AND: filters } : {};
+
+    try {
+      const hotels = await prismadb.hotel.findMany({
+        where: whereClause,
+        skip,
+        take: limit,
+        include: {
+          rooms: true,
+        },
+      });
+
+      const totalCount = await prismadb.hotel.count({ where: whereClause });
+
+      return NextResponse.json({ hotels, totalCount });
+
+    } catch (error) {
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+
 }
