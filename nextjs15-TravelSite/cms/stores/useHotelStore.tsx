@@ -3,6 +3,9 @@ import { create } from "zustand";
 export type Hotel = {
   id: string;
   name: string;
+  description: string;
+  location: string;
+  address: string;
   rating: number;
   pricePerNight: number;
   rooms: Array<{ id: string; name: string }>;

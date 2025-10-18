@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prismadb } from "@/lib/db";
 import { Prisma } from "@prisma/client";
+import { de } from "zod/v4/locales";
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,6 +75,47 @@ export async function GET(request: NextRequest) {
     ]);
 
     return NextResponse.json({ hotels, totalCount });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const {
+      id,
+      name,
+      description,
+      location,
+      address,
+      rating,
+      photos,
+      pricePerNight,
+    } = body;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Hotel ID is required" },
+        { status: 400 }
+      );
+    }
+    const updatedHotel = await prismadb.hotel.update({
+      where: { id },
+      data: {
+        name,
+        description,
+        location,
+        address,
+        rating,
+        photos,
+        pricePerNight,
+      },
+    });
+    return NextResponse.json(updatedHotel);
   } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },

@@ -13,7 +13,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -21,9 +21,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -36,8 +33,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Hotel, useHotelStore } from "@/stores/useHotelStore";
+import ActionCell from "./ActionCell";
+import { set } from "zod";
+import EditHotelForms from "./EditHotelForm";
 
-export const columns: ColumnDef<Hotel>[] = [
+export const baseColumns: ColumnDef<Hotel>[] = [
   {
     accessorKey: "name",
     header: "Hotel Name",
@@ -58,35 +58,6 @@ export const columns: ColumnDef<Hotel>[] = [
         currency: "USD",
       }).format(price);
       return <div className="text-left font-medium">{formatted}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
     },
   },
 ];
@@ -117,6 +88,32 @@ export function HotelTable() {
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm, fetchHotels]);
+
+  const [selectedHotel, setSelectedHotel] = React.useState<Hotel | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
+
+  const handleEditClick = (hotel: Hotel) => {
+    setSelectedHotel(hotel);
+    setIsEditDialogOpen(true);
+  };
+
+  const columns = React.useMemo<ColumnDef<Hotel>[]>(() => {
+    return [
+      ...baseColumns,
+      {
+        id: "actions",
+        enableHiding: true,
+        cell: ({ row }) => {
+          const hotel = row.original;
+          return (
+            <>
+              <ActionCell hotel={hotel} onEditClick={handleEditClick} />
+            </>
+          );
+        },
+      },
+    ];
+  }, []);
 
   const table = useReactTable({
     data: hotels,
@@ -249,6 +246,11 @@ export function HotelTable() {
           </Button>
         </div>
       </div>
+      <EditHotelForms
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        initialHotel={selectedHotel}
+      />
     </div>
   );
 }
